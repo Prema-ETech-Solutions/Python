@@ -9,7 +9,7 @@ A tuple is a collection which is ordered and unchangeable.
 
 Tuples are written with round brackets.
 """
-mytuple = ("apple", "banana", "cherry")
+my_tuple = ("apple", "banana", "cherry")
 """
 Tuple Items
 Tuple items are ordered, unchangeable, and allow duplicate values.
@@ -49,5 +49,5 @@ thistuple = ("apple")
 print(type(thistuple))
 
 # From Python's perspective, tuples are defined as objects with the data type 'tuple':
-mytuple = ("apple", "banana", "cherry")
-print(type(mytuple))
+my_tuple = ("apple", "banana", "cherry")
+print(type(my_tuple))
