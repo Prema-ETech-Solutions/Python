@@ -3,5 +3,18 @@
 		{
 			"path": ".."
 		}
-	]
+	],
+	"settings": {
+		"cSpell.words": [
+			"AMEY",
+			"KAJAL",
+			"KENE",
+			"mydoubler",
+			"myfolder",
+			"myfunc",
+			"myfunction",
+			"mytripler",
+			"Rossum"
+		]
+	}
 }
