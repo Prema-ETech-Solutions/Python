@@ -7,6 +7,8 @@
 	"settings": {
 		"cSpell.words": [
 			"AMEY",
+			"DGRAM",
+			"INET",
 			"KAJAL",
 			"KENE",
 			"Lorum",
@@ -16,7 +18,12 @@
 			"myfunction",
 			"mymodule",
 			"mytripler",
-			"Rossum"
+			"netsh",
+			"passw",
+			"pyqrcode",
+			"pytube",
+			"Rossum",
+			"wlan"
 		]
 	}
 }
