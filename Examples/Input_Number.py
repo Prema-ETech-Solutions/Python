@@ -6,3 +6,5 @@ while not valid:
         valid = True 
     except ValueError:
         print('Please only input digits')
+
+input()

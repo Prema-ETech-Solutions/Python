@@ -44,3 +44,5 @@ for name in wifi_names:
         print("{:<20}|  {:}".format(name, passwords[0]))
     except IndexError:
         print("{:<20}|  {:}".format(name, ""))
+
+input()

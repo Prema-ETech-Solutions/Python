@@ -20,10 +20,26 @@
 			"mytripler",
 			"netsh",
 			"passw",
+			"pyfiglet",
 			"pyqrcode",
 			"pytube",
 			"Rossum",
 			"wlan"
+		],
+		"sqltools.connections": [
+			{
+				"mysqlOptions": {
+					"authProtocol": "default"
+				},
+				"previewLimit": 50,
+				"server": "localhost",
+				"port": 3306,
+				"driver": "MySQL",
+				"name": "Contact_Python",
+				"username": "Vs",
+				"password": "@123",
+				"database": "contact"
+			}
 		]
 	}
 }

@@ -15,3 +15,4 @@ def extract_ip():
         st.close()
     return IP
 print("IP - " + extract_ip())
+input()
