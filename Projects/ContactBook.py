@@ -291,9 +291,11 @@ def Add_Screen_Logic_Entry():
     err =DB.Insert(sql,data_pass)
     if err == 0:
         print("Data Saved")
+        input()
         Main_Menu()
     else:
-        print("The Data Is Not Inserted s")
+        print("The Data Is Not Inserted ")
+        input()
         Main_Menu()
 
 def ShowAll():
@@ -340,7 +342,6 @@ def Update_Contact():
     sql ="SELECT * FROM contact.contact WHERE First_Name = '{}';".format(Old_F_Name)
     rs=DB.Select(sql)
     for x in rs:
-
         count = count+1
         print()
         print("Entry No.",count)
@@ -366,11 +367,120 @@ def Update_Contact():
         print("--------------------------------------------------------------------")
         print()
         time.sleep(0.3)    
-    if count == 0:
+    if count == 0: 
         print("No Record Found ..... ")
+        input()
+        Main_Menu()
     else:
         print("Total Record Found ",count,".....")
-    old =input("Enter The Entry Number :")
+        input()
+        while True:
+            try:
+                print("Enter The Entry Number Range ( 1 - ",count,")")
+                Old_Val=int(input(":"))
+                if Old_Val >= 1 and Old_Val <= count:
+                    break
+                else:
+                    print("Input is out of range")
+            except ValueError:
+                print("Invalid Input")
+        count =0
+        for x in rs:
+            count = count+1
+            if  count== Old_Val:
+                Update_Log(x[0])
+
+
+def Update_Log(Id):
+    F_name = input("Enter First Name :- ")
+    M_name = input("Enter Middle Name :- ")
+    L_name = input("Enter Last Name :- ")
+    N_name = input("Enter Nickname :- ")
+    while True:
+        try:
+            Mobile= int(input("Enter Phone Number :- "))
+            if len(str(Mobile)) == 10:
+                break
+            else:
+                print("Enter 10 Digit Valid Number")
+        except ValueError:
+            print("Invalid input")
+    Work = "NOT AVAILABLE"
+    while True:
+        Op = input("Do You Want To Add Work Number? \nYes \nNo\nEnter The Option:")
+        if Op in "yes" or Op in "Yes" or Op in "YES" or Op == 'Y' or Op == 'y':
+            
+            while True:
+                try:
+                    Work= input("Enter Work Number :- ")
+                    if len(str(Work)) == 10:
+                        break
+                    else:
+                        print("Enter 10 Digit Valid Number")
+                except ValueError:
+                    print("Invalid input")
+            break
+        elif Op in "no" or Op in "No" or Op in "NO" or Op == 'n' or Op == 'N':
+            break
+        else:
+            print('''Enter 'Yes' OR 'No' ''')
+    
+    Cmp= input("Enter Company Name :- ")
+    B_day= input("Enter Birthday :- ")
+    Address =input("Enter Address :- ")
+    # Check Data is proper
+    while True:
+        if len(F_name.strip()) ==0:
+            print("You did not enter the First Name !")
+            F_name = input("Enter The First Name : ")
+        elif len(M_name.strip()) ==0:
+            M_name = "NOT AVAILABLE"
+        elif len(L_name.strip()) ==0:
+            L_name = "NOT AVAILABLE"
+        elif len(N_name.strip()) ==0:
+            N_name = "NOT AVAILABLE"
+        elif len(Cmp.strip()) ==0:
+            Cmp = "NOT AVAILABLE"
+        elif len(B_day.strip()) ==0:
+            B_day = "NOT AVAILABLE"
+        elif len(Address.strip()) ==0:
+            Address = "NOT AVAILABLE"
+        else:
+            data=[]
+            data.append(F_name)
+            data.append(M_name)
+            data.append(L_name)
+            data.append(N_name)
+            data.append(Mobile)
+            data.append(Work)
+            data.append(Cmp)
+            data.append(B_day)
+            data.append(Address)
+            break
+
+    # Data Update     
+    data.append(Id)
+    data_pass = tuple(data)
+    sql ="UPDATE contact.contact SET First_Name = %s, Middle_Name = %s, Last_Name = %s, Nickname = %s, Mobile_Number = %s, Work_Number = %s, Company = %s, Birthday = %s, Address = %s WHERE (ID = %s);"
+    err =DB.Insert(sql,data_pass)
+    if err == 0:
+        print("Data Updated")
+        input()
+        Main_Menu()
+    else:
+        print("The Data Is Not Updated")
+        input()
+        Main_Menu()
+    
+
+
+
+
+
+
+
+        
+
 
 if __name__ == "__main__":
     DB=Database()
