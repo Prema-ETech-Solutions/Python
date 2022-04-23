@@ -23,7 +23,7 @@ class Database:
             return -1
     def Create(self,sql):
         try :
-            self.db_Cursor = self.db.cursor()
+            # self.db_Cursor = self.db.cursor()
             self.db_Cursor.execute(sql)
             return 0
         except:
@@ -196,9 +196,9 @@ def Main_Menu():
     elif x == 3 :
         Update_Contact()
     elif x == 4:
-        pass
+        Remove_Screen()
     elif x == 5:
-        pass
+        Search()
     elif x == 6:
         Log_Out()
         Connect_Option()
@@ -471,15 +471,117 @@ def Update_Log(Id):
         print("The Data Is Not Updated")
         input()
         Main_Menu()
-    
 
+def Remove_Screen():
+    Show("Remove Contact")
+    Old_F_Name = input("Enter The First Name :- ")
+    count =0
+    sql ="SELECT * FROM contact.contact WHERE First_Name = '{}';".format(Old_F_Name)
+    rs=DB.Select(sql)
+    for x in rs:
+        count = count+1
+        print()
+        print("Entry No.",count)
+        print("--------------------------------------------------------------------")
+        print("First Name - ",x[1])
+        time.sleep(0.1)    
+        print("Middle Name - ",x[2])
+        time.sleep(0.1)    
+        print("Last Name - ",x[3])
+        time.sleep(0.1)    
+        print("Nickname - ",x[4])
+        time.sleep(0.1)    
+        print("Mobile Number - ",x[5])
+        time.sleep(0.1)    
+        print("Work Number - ",x[6])
+        time.sleep(0.1)    
+        print("Company Name - ",x[7])
+        time.sleep(0.1)    
+        print("Birth Date - ",x[8])
+        time.sleep(0.1)    
+        print("Address - ",x[9])
+        time.sleep(0.1)    
+        print("--------------------------------------------------------------------")
+        print()
+        time.sleep(0.3)    
+    if count == 0: 
+        print("No Record Found ..... ")
+        input()
+        Main_Menu()
+    else:
+        print("Total Record Found ",count,".....")
+        input()
+        while True:
+            try:
+                print("Enter The Entry Number Range ( 1 - ",count,")")
+                Old_Val=int(input(":"))
+                if Old_Val >= 1 and Old_Val <= count:
+                    break
+                else:
+                    print("Input is out of range")
+            except ValueError:
+                print("Invalid Input")
+        count =0
+        for x in rs:
+            count = count+1
+            if  count== Old_Val:
+                Remove_Log(x[0])
 
+def Remove_Log(Id):
+    temp=[]
+    temp.append(Id)
+    Data =tuple(temp)
+    sql ="DELETE FROM contact.contact WHERE ID = %s"
+    err =DB.Insert(sql,Data)
+    if err == 0:
+        print("Data Removed")
+        input()
+        Main_Menu()
+    else:
+        print("The Data Is Not Removed")
+        input()
+        Main_Menu()
 
-
-
-
-
-        
+def Search():
+    Show("Search Contact")
+    Old_F_Name = input("Enter The First Name :- ")
+    count =0
+    sql ="SELECT * FROM contact.contact WHERE First_Name = '{}';".format(Old_F_Name)
+    rs=DB.Select(sql)
+    for x in rs:
+        count = count+1
+        print()
+        print("Entry No.",count)
+        print("--------------------------------------------------------------------")
+        print("First Name - ",x[1])
+        time.sleep(0.1)    
+        print("Middle Name - ",x[2])
+        time.sleep(0.1)    
+        print("Last Name - ",x[3])
+        time.sleep(0.1)    
+        print("Nickname - ",x[4])
+        time.sleep(0.1)    
+        print("Mobile Number - ",x[5])
+        time.sleep(0.1)    
+        print("Work Number - ",x[6])
+        time.sleep(0.1)    
+        print("Company Name - ",x[7])
+        time.sleep(0.1)    
+        print("Birth Date - ",x[8])
+        time.sleep(0.1)    
+        print("Address - ",x[9])
+        time.sleep(0.1)    
+        print("--------------------------------------------------------------------")
+        print()
+        time.sleep(0.3)    
+    if count == 0: 
+        print("No Record Found ..... ")
+        input()
+        Main_Menu()
+    else:
+        print("Total Record Found ",count,".....")
+        input()
+        Main_Menu()
 
 
 if __name__ == "__main__":
