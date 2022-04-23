@@ -1,10 +1,5 @@
 import os
-from pickle import NONE
-from re import I
 import time
-from typing_extensions import Self
-from warnings import catch_warnings
-from colorama import Cursor
 import pyfiglet as big
 import mysql.connector
 DB = None
