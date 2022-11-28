@@ -104,17 +104,10 @@ def commentary(data):
             }
 
 
-def Csv_create():
+def Csv_create(file_Name):
 
-    file_Name = ""
-
-    now = datetime.now()
-    now = now.strftime("%Y/%m/%d %I:%M:%S")  # 12-hour format.
-    file_Name = file_Name +"_"+ now + ".csv"
-    file_Name = file_Name.replace(":", "-")
-    file_Name = file_Name.replace(" ", "_")
-    file_Name = file_Name.replace("/", "-")
-    with open(file_Name, "w", newline="") as csvfile:
+    
+    with open(file_Name+".csv", "w", newline="") as csvfile:
         fieldnames = [
             "TeamA",
             "TeamB",
@@ -149,7 +142,13 @@ def Csv_create():
             temp["Winner"] = data["winner"]
             # print(temp)
             thewriter.writerow(temp)
-            pass
+        print(file_Name +".csv"+" Created")
+
+def Json_Create(file_Name):
+    
+    with open(file_Name+".json",'w') as J:
+        json.dump(raw,J)
+    print(file_Name +".json"+ " Created")
 
 
 def Extract():
@@ -258,7 +257,16 @@ def Extract():
             raw[x] = data.copy()
         # test = raw[0]
         # print(raw)
-        Csv_create()
+
+        file_Name = ""
+        now = datetime.now()
+        now = now.strftime("%Y/%m/%d %I:%M:%S")  # 12-hour format.
+        file_Name = file_Name +"_"+ now
+        file_Name = file_Name.replace(":", "-")
+        file_Name = file_Name.replace(" ", "_")
+        file_Name = file_Name.replace("/", "-")
+        Json_Create(file_Name)
+        Csv_create(file_Name)
 
     else:
         print("NO DATA FOUND !!s")
