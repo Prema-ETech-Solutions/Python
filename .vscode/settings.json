@@ -4,9 +4,11 @@
     "cSpell.words": [
         "apidata",
         "Cric",
+        "csvfile",
         "espncricinfo",
         "figlet",
         "matchid",
-        "pyfiglet"
+        "pyfiglet",
+        "thewriter"
     ]
 }

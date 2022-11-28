@@ -2,7 +2,11 @@ import requests
 import math
 from bs4 import BeautifulSoup
 import json, urllib.request
-import sys, os
+import os
+import csv
+import datetime
+import time
+
 
 
 raw = []
@@ -100,6 +104,38 @@ def commentary(data):
             }
 
 
+def Csv_create():
+    file_Name = ""
+    date_object = datetime.date.today()
+    t = time.localtime()
+    current_time = time.strftime("%H:%M:%S", t)
+    file_Name = file_Name +"_"+ str(date_object) +"_"+str(current_time)+".csv"
+
+    with open( 'file_Name.csv','w',newline= '') as csvfile:
+        fieldnames = ['TeamA','TeamB',"Match_no","Stage","Date","Tournament","Score_A","Score_B","Commentary_Title","Commentary","Winner"] 
+        thewriter = csv.DictWriter(csvfile, fieldnames=fieldnames)
+        thewriter. writeheader()
+        for x in range(len(raw)):
+            data = raw[x]
+            temp = {}
+            teams = data['teams']
+            temp['TeamA'] = teams['teamA']
+            temp['TeamB'] = teams['teamB']
+            temp['Match_no']=data['match_no']
+            temp['Stage']=data['stage']
+            temp['Date']=data['date']
+            temp['Tournament']=data['tournament']
+            score = data['score']
+            temp['Score_A']=score['Score_A']
+            temp['Score_B']=score['Score_B']
+            commentary =data['commentary']
+            temp['Commentary_Title'] = commentary['title']
+            temp['Commentary'] = commentary['commentary']
+            temp['Winner'] = data['winner']
+            # print(temp)
+            thewriter.writerow(temp)
+            pass
+
 def Extract():
     # print(len(raw))
     if len(raw) != 0:
@@ -158,7 +194,7 @@ def Extract():
             # print("Team B :" + teamsB.string)
             # data['teamA'] = teamsA.string
             # data['teamB'] = teamsB.string
-            data["Teams"] = {"teamA": teamsA.string, "teamB": teamsB.string}
+            data["teams"] = {"teamA": teamsA.string, "teamB": teamsB.string}
 
             full = full.split(",")
             if len(full) > 5:
@@ -204,6 +240,11 @@ def Extract():
             # print(data)
 
             raw[x] = data.copy()
+        # test = raw[0]
+        # print(raw)
+        Csv_create()
+
+
 
     else:
         print("NO DATA FOUND !!s")
