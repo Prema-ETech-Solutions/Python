@@ -87,7 +87,7 @@ def commentary(data):
         + "&commentType=ALL&sortDirection=DESC&fromInningOver="
         + str(math.ceil(data["over_in"]))
     )
-    output = urllib.request.urlopen(Apiurl).read()
+    output = urllib.request.urlopen(Apiurl).read()      
     output = json.loads(output)
     output = output["comments"]
     # print(output)
@@ -136,9 +136,12 @@ def Csv_create(file_Name):
             score = data["score"]
             temp["Score_A"] = score["Score_A"]
             temp["Score_B"] = score["Score_B"]
+            
+            
             commentary = data["commentary"]
             temp["Commentary_Title"] = commentary["title"]
             temp["Commentary"] = commentary["commentary"]
+               
             temp["Winner"] = data["winner"]
             # print(temp)
             thewriter.writerow(temp)
@@ -155,7 +158,6 @@ def Extract():
     # print(len(raw))
     if len(raw) != 0:
         for x in range(len(raw)):
-
             data = raw[x]
             # print(data['link'])
             content = requests.get(data["link"])
@@ -255,8 +257,11 @@ def Extract():
             # print(data)
 
             raw[x] = data.copy()
+            data.clear()
         # test = raw[0]
         # print(raw)
+        print(raw)
+
 
         file_Name = ""
         now = datetime.now()
@@ -269,7 +274,7 @@ def Extract():
         Csv_create(file_Name)
 
     else:
-        print("NO DATA FOUND !!s")
+        print("NO DATA FOUND !!")
 
 
 # Start
