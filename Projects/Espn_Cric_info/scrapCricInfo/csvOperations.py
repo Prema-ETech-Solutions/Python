@@ -5,6 +5,8 @@ import time
 def csvCreate(file_Name ,dataCollection):
     with open(file_Name+".csv", "w", newline="") as csvfile:
         fieldnames = [
+            "momentBall",
+            "momentInning",
             "TeamA",
             "TeamB",
             "Match_no",
@@ -13,7 +15,6 @@ def csvCreate(file_Name ,dataCollection):
             "Tournament",
             "Score_A",
             "Score_B",
-            "Commentary_Title",
             "Commentary",
             "Winner",
         ]
@@ -21,22 +22,54 @@ def csvCreate(file_Name ,dataCollection):
         thewriter.writeheader()
         for x in range(len(dataCollection)):
             data = dataCollection[x]
+            
             temp = {}
+            temp["momentBall"] =data["momentBall"]
+            temp["momentInning"] =data["momentInning"]
             teams = data["teams"]
             temp["TeamA"] = teams["teamA"]
             temp["TeamB"] = teams["teamB"]
-            temp["Match_no"] = data["match_no"]
+            num = ''.join(filter(lambda i: i.isdigit(), data["match_no"]))
+            if num:
+                pass
+            else:
+                num = "NA"
+            temp["Match_no"] = num
             temp["Stage"] = data["stage"]
             temp["Date"] = data["date"]
             temp["Tournament"] = data["tournament"]
             score = data["score"]
-            temp["Score_A"] = score["Score_A"]
-            temp["Score_B"] = score["Score_B"]
             
             
+            Score_A = score["Score_A"]
+            if "/" in Score_A:
+                pass
+            else:
+                Score_A = Score_A + "/10"
+            temp["Score_A"] = Score_A
+            Score_B = score["Score_B"]
+            Score_B = Score_B.split(")")
+            
+            if len(Score_B) ==2:
+                Score_B = Score_B[1]
+                if "/" in Score_B:
+                    pass
+                else:
+                    Score_B = Score_B + "/10"
+
+            
+            temp["Score_B"] = Score_B
+
+
             commentary = data["commentary"]
-            temp["Commentary_Title"] = commentary["title"]
-            temp["Commentary"] = commentary["commentary"]
+            ball = str(data["momentBall"])
+            print(type(ball))
+            if commentary["commentary"] == None:
+                tmp = ball + commentary["title"]
+                temp["Commentary"] =tmp
+            else:  
+                tmp = ball +", "+ commentary["title"]+", "+commentary["commentary"]
+                temp["Commentary"] =tmp
                
             temp["Winner"] = data["winner"]
             # print(temp)
