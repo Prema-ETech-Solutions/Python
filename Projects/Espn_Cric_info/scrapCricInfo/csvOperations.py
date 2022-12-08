@@ -39,7 +39,8 @@ def csvCreate(file_Name ,dataCollection):
 
             temp["Stage"] = stageOperations(data["stage"])
             temp["Date"] = data["date"]
-            temp["Tournament"] = dateOperations(data["date"]) +" "+ data["tournament"]
+            
+            temp["Tournament"] = dateOperations(data["date"]) +" "+ tournamentOperations(data["tournament"])
             score = data["score"]
             
             
