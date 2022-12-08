@@ -1,4 +1,4 @@
-
+from strOperations import *
 import csv
 import time
 
@@ -27,17 +27,19 @@ def csvCreate(file_Name ,dataCollection):
             temp["momentBall"] =data["momentBall"]
             temp["momentInning"] =data["momentInning"]
             teams = data["teams"]
-            temp["TeamA"] = teams["teamA"]
-            temp["TeamB"] = teams["teamB"]
+            temp["TeamA"] = TeamsOperations(teams["teamA"])
+            temp["TeamB"] = TeamsOperations(teams["teamB"])
             num = ''.join(filter(lambda i: i.isdigit(), data["match_no"]))
             if num:
                 pass
             else:
                 num = "NA"
             temp["Match_no"] = num
-            temp["Stage"] = data["stage"]
+
+
+            temp["Stage"] = stageOperations(data["stage"])
             temp["Date"] = data["date"]
-            temp["Tournament"] = data["tournament"]
+            temp["Tournament"] = dateOperations(data["date"]) +" "+ data["tournament"]
             score = data["score"]
             
             
@@ -63,9 +65,8 @@ def csvCreate(file_Name ,dataCollection):
 
             commentary = data["commentary"]
             ball = str(data["momentBall"])
-            print(type(ball))
             if commentary["commentary"] == None:
-                tmp = ball + commentary["title"]
+                tmp = ball +", "+ commentary["title"]
                 temp["Commentary"] =tmp
             else:  
                 tmp = ball +", "+ commentary["title"]+", "+commentary["commentary"]

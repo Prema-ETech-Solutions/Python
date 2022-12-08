@@ -35,10 +35,10 @@
 				"server": "localhost",
 				"port": 3306,
 				"driver": "MySQL",
-				"name": "Contact_Python",
-				"username": "Vs",
-				"password": "@123",
-				"database": "contact"
+				"name": "XAMP",
+				"database": "test",
+				"username": "root",
+				"password": ""
 			}
 		]
 	}
