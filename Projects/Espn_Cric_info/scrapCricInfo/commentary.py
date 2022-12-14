@@ -55,10 +55,10 @@ def commentaryExt(dataCollection):
                         st = "1 run"
                         pass
                     elif apidata["totalRuns"] == 2:
-                        st = "2 run"
+                        st = "2 runs"
                         pass
                     elif apidata["totalRuns"] == 3:
-                        st = "3 run"
+                        st = "3 runs"
                         pass
                     else:
                         pass

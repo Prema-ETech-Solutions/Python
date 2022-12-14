@@ -18,7 +18,7 @@ def start():
         print("Enter ")
         print("00)Manual Data Entry")
         print("01)Automation Data Entry")
-        print("02)Verify Data Entry")
+        # print("02)Verify Data Entry")
         print("99)Exit")
         menu_entry = wholeNumber("Enter The Number : ")
         if menu_entry == 00:
@@ -32,7 +32,7 @@ def start():
             else:
                 # clear()
                 print("Invalid Input !!")
-
+        
         elif menu_entry == 1:
             csvRead(dataCollection)
             if len(dataCollection) > 0:
@@ -44,10 +44,10 @@ def start():
             else:
                 clear()
                 print("Invalid Input !!")
-        elif menu_entry == 2:
-            break
+        
         elif menu_entry == 99:
             break
+        
         else:
             clear()
             print("Invalid Input !!")

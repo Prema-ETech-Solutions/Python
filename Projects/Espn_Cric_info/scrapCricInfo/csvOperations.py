@@ -70,7 +70,7 @@ def csvCreate(file_Name ,dataCollection):
                 tmp = ball +", "+ commentary["title"]
                 temp["Commentary"] =tmp
             else:  
-                tmp = ball +", "+ commentary["title"]+", "+commentary["commentary"]
+                tmp = ball +", "+ commentary["title"]+" "+commentary["commentary"].capitalize()
                 temp["Commentary"] =tmp
                
             temp["Winner"] = data["winner"]
@@ -140,4 +140,6 @@ def csvRead(dataCollection):
             time.sleep(2)
             continue
                       
-      
+
+
+
