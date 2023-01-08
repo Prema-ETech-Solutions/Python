@@ -10,15 +10,28 @@ def scrapWeb(dataCollection):
         content = requests.get(data["espnLink"])
         html_con = content.content
         soup = BeautifulSoup(html_con, "html.parser")
-
+        data["texcept"] = []
+        # print(soup)
         # Scraping The Data From Web:
         # Teams
         teams = soup.find_all(
             "span",
             class_="ds-text-tight-l ds-font-bold ds-text-ui-typo hover:ds-text-ui-typo-primary ds-block ds-truncate",
         )
-        teamsA = teams[0]
-        teamsB = teams[1]
+        try:
+            teamsA = teams[0]
+        except Exception as e:
+            teamsA = ""
+            tmp = data["texcept"]
+            data["texcept"] =  tmp.append(e)
+        
+        try:
+            teamsB = teams[1]
+        except Exception as e:
+            teamsB = ""
+            tmp = data["texcept"]
+            data["texcept"] =  tmp.append(e)
+        
 
         # [Match-No , Stage ,Location ,Date , Tournament]
         f1 = soup.find(
@@ -60,7 +73,7 @@ def scrapWeb(dataCollection):
         data["teams"] = {"teamA": teamsA.string, "teamB": teamsB.string}
 
         full = full.split(",")
-        # print(full)
+        print(full)
         # print(len(full))
         if len(full) > 5:
             data["match_no"] = full[0]

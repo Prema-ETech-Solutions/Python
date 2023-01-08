@@ -5,6 +5,7 @@ import time
 def csvCreate(file_Name ,dataCollection):
     with open(file_Name+".csv", "w", newline="") as csvfile:
         fieldnames = [
+            "Link",
             "momentBall",
             "momentInning",
             "TeamA",
@@ -16,14 +17,17 @@ def csvCreate(file_Name ,dataCollection):
             "Score_A",
             "Score_B",
             "Commentary",
+            "Moment Type",
             "Winner",
         ]
         thewriter = csv.DictWriter(csvfile, fieldnames=fieldnames)
         thewriter.writeheader()
         for x in range(len(dataCollection)):
             data = dataCollection[x]
-            
+            # print(data)
             temp = {}
+
+            temp["Link"] =data["espnLink"]
             temp["momentBall"] =data["momentBall"]
             temp["momentInning"] =data["momentInning"]
             teams = data["teams"]
@@ -35,6 +39,8 @@ def csvCreate(file_Name ,dataCollection):
             else:
                 num = "NA"
             temp["Match_no"] = num
+
+            temp["Moment Type"] = data["Moment_Type"]
 
 
             temp["Stage"] = stageOperations(data["stage"])

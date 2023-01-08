@@ -40,31 +40,42 @@ def commentaryExt(dataCollection):
                         commentary_str = apidata["dismissalText"]
                         commentary_str = commentary_str["long"]
                         
-                    
+                    Moment_Type=""
                     st = ""
                     if apidata["isFour"] == True:
                         st = "FOUR runs"
+                        Moment_Type = "Four"
                         pass
                     elif apidata["isSix"] == True:
                         st = "SIX runs"
+
+                        Moment_Type = "Six"
                         pass
                     elif apidata["isWicket"] == True:
                         st = "OUT"
+                        Moment_Type = "Wicket"
                         pass
                     elif apidata["totalRuns"] == 1:
                         st = "1 run"
+                        Moment_Type = "Single"
                         pass
                     elif apidata["totalRuns"] == 2:
                         st = "2 runs"
+                        Moment_Type = "Double"
                         pass
                     elif apidata["totalRuns"] == 3:
                         st = "3 runs"
+                        Moment_Type = "Triple"
                         pass
                     else:
+                        
+                        Moment_Type = "NA"
                         pass
+
                     title = apidata["title"] + ", " + st
                     break
 
+        data["Moment_Type"] = Moment_Type
         data["commentary"] = {
         "title": title,
         "commentary": commentary_str,

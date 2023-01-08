@@ -26,11 +26,13 @@ def start():
             if len(dataCollection) > 0:
                 idExt(dataCollection)
                 scrapWeb(dataCollection)
-                commentaryExt(dataCollection)
-                csvCreate(fileName(),dataCollection)
-                jsonCreate(fileName(),dataCollection)
+                print(dataCollection)
+                # commentaryExt(dataCollection)
+                # print(dataCollection)
+                # jsonCreate(fileName(),dataCollection)
+                # csvCreate(fileName(),dataCollection)
             else:
-                # clear()
+                clear()
                 print("Invalid Input !!")
         
         elif menu_entry == 1:
@@ -39,8 +41,10 @@ def start():
                 idExt(dataCollection)
                 scrapWeb(dataCollection)
                 commentaryExt(dataCollection)
-                csvCreate(fileName(),dataCollection)
+                print(dataCollection)
+
                 jsonCreate(fileName(),dataCollection)
+                csvCreate(fileName(),dataCollection)
             else:
                 clear()
                 print("Invalid Input !!")
