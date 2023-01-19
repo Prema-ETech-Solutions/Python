@@ -19,3 +19,4 @@ def decimalNumber(msg):
             print('Please only input digits')
     
     return x
+

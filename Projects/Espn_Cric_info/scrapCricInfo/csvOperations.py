@@ -8,8 +8,12 @@ def csvCreate(file_Name ,dataCollection):
             "Link",
             "momentBall",
             "momentInning",
+            "Player Name",
             "TeamA",
+            "OverA",
             "TeamB",
+            "OverB",
+            "Player's Team",
             "Match_no",
             "Stage",
             "Date",
@@ -18,7 +22,11 @@ def csvCreate(file_Name ,dataCollection):
             "Score_B",
             "Commentary",
             "Moment Type",
-            "Winner",
+            "Badges",
+            "Nft Class",
+            "Team",
+            "Player Skills",
+            "Player Level",
         ]
         thewriter = csv.DictWriter(csvfile, fieldnames=fieldnames)
         thewriter.writeheader()
@@ -30,9 +38,17 @@ def csvCreate(file_Name ,dataCollection):
             temp["Link"] =data["espnLink"]
             temp["momentBall"] =data["momentBall"]
             temp["momentInning"] =data["momentInning"]
+            temp["Player Name"] =data["Player"]
             teams = data["teams"]
+            Over = data["Overs"]
             temp["TeamA"] = TeamsOperations(teams["teamA"])
+            temp["OverA"] = rmOv(Over["teamA_Ov"])
+            
             temp["TeamB"] = TeamsOperations(teams["teamB"])
+            temp["OverB"] = rmOv(Over["teamB_Ov"])
+            temp["Player's Team"] = TeamsOperations(data["Players_Team"])  
+
+
             num = ''.join(filter(lambda i: i.isdigit(), data["match_no"]))
             if num:
                 pass
@@ -45,8 +61,10 @@ def csvCreate(file_Name ,dataCollection):
 
             temp["Stage"] = stageOperations(data["stage"])
             temp["Date"] = data["date"]
+            tor =dateOperations(data["date"]) +" "+ tournamentOperations(data["tournament"])
+            tor = Format_Tor(tor,data["actual"])
+            temp["Tournament"] = tor
             
-            temp["Tournament"] = dateOperations(data["date"]) +" "+ tournamentOperations(data["tournament"])
             score = data["score"]
             
             
@@ -78,18 +96,27 @@ def csvCreate(file_Name ,dataCollection):
             else:  
                 tmp = ball +", "+ commentary["title"]+" "+commentary["commentary"].capitalize()
                 temp["Commentary"] =tmp
-               
-            temp["Winner"] = data["winner"]
-            # print(temp)
+            
+            Badges =data["Badges"]
+            Player = data["Player"]
+            if Badges.lower() == Player.lower():
+                temp["Badges"] = "POTM"
+            else:
+                temp["Badges"] = ""
+            meta =data["meta"]
+            temp["Nft Class"] = meta["nftClass"]
+            temp["Team"] = meta["team"]
+            temp["Player Skills"] = meta["playerSkills"]
+            temp["Player Level"] = meta["playerLevel"]
+
+            print(temp)
             thewriter.writerow(temp)
         print(file_Name +".csv"+" Created")
 
 
 
 def csvRead(dataCollection):
-    errLink=[]
-    errBall=[]
-    errIn=[]
+    
     while True:
         try:
             path = input("Enter the Path :")
@@ -117,6 +144,7 @@ def csvRead(dataCollection):
                             momentInning = int(temp)
                         else:
                             print("Invalid Moment Inning !!"+momentInning)
+                            continue
                         
                         momentBall = "N A"
                         try :
@@ -126,15 +154,25 @@ def csvRead(dataCollection):
                              momentBall = float(row[2])
                         except:
                             print("Invalid Moment Ball !!"+momentBall)
+                            continue
+                        Player = "N A"
+                        try :
+                            
+                            Player = str(row[3])
+                        except:
+                            print("Player Name In-valid"+row[3])
+                            continue
                         
+
                         # print(link)
                         # print(momentBall)
                         # print(momentInning)
                         data["espnLink"] = link
                         data["momentBall"] = momentBall
                         data["momentInning"] = momentInning
+                        data["Player"] = Player
+                        print(data)
                         dataCollection.append(data.copy())
-
                     else:
                         count = count +1
                 break

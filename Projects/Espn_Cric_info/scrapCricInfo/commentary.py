@@ -80,4 +80,5 @@ def commentaryExt(dataCollection):
         "title": title,
         "commentary": commentary_str,
         }
+        print(data)
         dataCollection[index]=data.copy()

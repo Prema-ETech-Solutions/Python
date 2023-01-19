@@ -7,6 +7,7 @@ import os
 from datetime import datetime
 from csvOperations import *
 from jsonOperations import *
+from ApiReq import *
 
 
 clear = lambda: os.system("cls" if os.name in ("nt", "dos") else "clear")
@@ -26,11 +27,10 @@ def start():
             if len(dataCollection) > 0:
                 idExt(dataCollection)
                 scrapWeb(dataCollection)
-                print(dataCollection)
-                # commentaryExt(dataCollection)
-                # print(dataCollection)
-                # jsonCreate(fileName(),dataCollection)
-                # csvCreate(fileName(),dataCollection)
+                commentaryExt(dataCollection)
+                jsonCreate(fileName(),dataCollection)
+                csvCreate(fileName(),dataCollection)
+                dataCollection= []
             else:
                 clear()
                 print("Invalid Input !!")
@@ -39,12 +39,15 @@ def start():
             csvRead(dataCollection)
             if len(dataCollection) > 0:
                 idExt(dataCollection)
+                PLAYER_INFORMATION(dataCollection)
                 scrapWeb(dataCollection)
                 commentaryExt(dataCollection)
-                print(dataCollection)
+                # print(dataCollection)
 
                 jsonCreate(fileName(),dataCollection)
                 csvCreate(fileName(),dataCollection)
+                dataCollection= []
+                # clear()
             else:
                 clear()
                 print("Invalid Input !!")

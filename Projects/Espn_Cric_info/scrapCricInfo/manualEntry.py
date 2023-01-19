@@ -34,7 +34,16 @@ def gatherData(dataCollection):
                 print("Invalid Moment Inning !!"+momentInning)   
         
 
+        while True:
+            Player_Name=input("Enter Player Name : ")
+            if Player_Name:
+                # Checking espncricinfo link
+                break
+            else:
+                continue
+
         data["espnLink"] = link
         data["momentBall"] = momentBall
         data["momentInning"] = momentInning
+        data["Player"] = Player_Name
         dataCollection.append(data.copy())
