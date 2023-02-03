@@ -1,9 +1,12 @@
 import json, urllib.request
 import math
 from bs4 import BeautifulSoup
+import time
 
 
 def commentaryExt(dataCollection):
+    print("Commentary Scrape")
+    time.sleep(5)
     for index in range(len(dataCollection)):
         commentary_str = "N.A"
         title = "N.A"
@@ -74,11 +77,15 @@ def commentaryExt(dataCollection):
 
                     title = apidata["title"] + ", " + st
                     break
-
         data["Moment_Type"] = Moment_Type
         data["commentary"] = {
         "title": title,
         "commentary": commentary_str,
         }
         print(data)
+        print()
+        print()
+        print()
+        time.sleep(0.2)
+        # print(data)
         dataCollection[index]=data.copy()

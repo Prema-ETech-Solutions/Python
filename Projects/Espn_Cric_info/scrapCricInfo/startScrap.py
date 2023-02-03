@@ -4,6 +4,7 @@ from idExtracts import *
 from webScrap import scrapWeb
 from commentary import *
 import os
+import time
 from datetime import datetime
 from csvOperations import *
 from jsonOperations import *
@@ -26,11 +27,14 @@ def start():
             gatherData(dataCollection)
             if len(dataCollection) > 0:
                 idExt(dataCollection)
+                PLAYER_INFORMATION(dataCollection)
                 scrapWeb(dataCollection)
                 commentaryExt(dataCollection)
                 jsonCreate(fileName(),dataCollection)
                 csvCreate(fileName(),dataCollection)
                 dataCollection= []
+                time.sleep(5)
+                clear()
             else:
                 clear()
                 print("Invalid Input !!")
@@ -43,11 +47,11 @@ def start():
                 scrapWeb(dataCollection)
                 commentaryExt(dataCollection)
                 # print(dataCollection)
-
                 jsonCreate(fileName(),dataCollection)
                 csvCreate(fileName(),dataCollection)
                 dataCollection= []
-                # clear()
+                time.sleep(5)
+                clear()
             else:
                 clear()
                 print("Invalid Input !!")

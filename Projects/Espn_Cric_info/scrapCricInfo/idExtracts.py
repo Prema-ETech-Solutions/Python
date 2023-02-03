@@ -1,6 +1,9 @@
-
+import time
 
 def idExt(dataCollection):
+    print("Serial Id & Match Id")
+    time.sleep(4)
+
     for index in range(len(dataCollection)):
         dic = dataCollection[index]
         
@@ -25,4 +28,9 @@ def idExt(dataCollection):
 
         dic["serialId"] = serialId
         dic["matchId"] = matchID
+        print(dic)
+        print()
+        print()
+        print()
+        time.sleep(0.1)
         dataCollection[index] =dic.copy()

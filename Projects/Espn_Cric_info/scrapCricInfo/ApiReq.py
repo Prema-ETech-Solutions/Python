@@ -1,8 +1,9 @@
 import json, urllib.request
-
+import time
 
 def PLAYER_INFORMATION(dataCollection):
-
+    print("FC API")
+    time.sleep(4)
     for index in range(len(dataCollection)):
         data = dataCollection[index]
         player = data["Player"] 
@@ -29,16 +30,26 @@ def PLAYER_INFORMATION(dataCollection):
             meta["team"] = team
             meta["playerSkills"] = playerSkills
             meta["playerLevel"] = playerLevel
+            print(meta)
+            print()
+            print()
+            print()
+            time.sleep(0.1)
             data["meta"] = meta.copy() 
-            print(data)
+            # print(data)
         except Exception as e:
             meta = {}
-            meta["nftClass"] = "NA"
-            meta["team"] = "NA"
-            meta["playerSkills"] = "NA"
-            meta["playerLevel"] = "NA"
+            meta["nftClass"] = ""
+            meta["team"] = ""
+            meta["playerSkills"] = ""
+            meta["playerLevel"] = ""
+            print(meta)
+            print()
+            print()
+            print()
+            time.sleep(0.1)
             data["meta"] = meta.copy() 
-            print(e)
+            # print(e)
         
         
         
