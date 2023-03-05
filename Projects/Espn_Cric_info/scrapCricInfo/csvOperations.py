@@ -92,11 +92,14 @@ def csvCreate(file_Name, dataCollection):
             
 
             Badges = data["Badges"]
+            print("BADGGGG")
+            print(data["Badges"])
             Player = data["Player"]
-            Badges = ""
             if Badges.lower() == Player.lower():
                 Badges= "POTM"
-            
+            else:
+                Badges = ""
+                
 
             
 
@@ -139,6 +142,8 @@ def csvCreate(file_Name, dataCollection):
             temp["Match Number"] = num
             temp["Match Stage"] = stageOperations(data["stage"])
             temp["Tournament"] = tor
+            print("BADG")
+            print(Badges)
             temp["Badges"] = Badges
             temp["Moment Description"] = ""
             temp["Moment Commentary"] = tmp 
