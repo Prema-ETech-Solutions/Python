@@ -152,14 +152,21 @@ def Tor_num(soup, data):
 
 def Team_Score(soup, data):
     Teams_S = soup.find_all(
-        "td",
-        class_="ds-font-bold ds-bg-fill-content-alternate ds-text-tight-m ds-min-w-max ds-text-right",
+        "div",
+        class_="ds-text-compact-m ds-text-typo ds-text-right ds-whitespace-nowrap",
     )
     Teams_Score = []
     for item in Teams_S:
-        Teams_Score.append(item.text)
-
+        score = BeautifulSoup(str(item), "html.parser")
+        score = score.find_all(
+        "strong",
+        )
+        for it in score:
+            Teams_Score.append(it.text)
+    
+    # print(Teams_S)
     data["score"] = {"Score_A": Teams_Score[0], "Score_B": Teams_Score[1]}
+    # data["score"] = {"Score_A": "10/0", "Score_B": "98/1"}
 
 def Played(soup, data):
 
