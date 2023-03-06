@@ -51,7 +51,7 @@ def start():
                 csvCreate(fileName(),dataCollection)
                 dataCollection= []
                 time.sleep(5)
-                clear()
+                # clear()
             else:
                 clear()
                 print("Invalid Input !!")

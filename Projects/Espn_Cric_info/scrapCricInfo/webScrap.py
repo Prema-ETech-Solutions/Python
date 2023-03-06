@@ -4,13 +4,11 @@ from requests_html import HTMLSession
 from changeDate import *
 from commentary import *
 from strOperations import *
-import time
+import json
 
 
 def scrapWeb(dataCollection):
 
-    print("Web Scrape")
-    time.sleep(5)    
     found = False
     # tp = set()
     for index in range(len(dataCollection)):
@@ -42,8 +40,6 @@ def scrapWeb(dataCollection):
             print(espnlink)
         data["espnLink"] = espnlink
 
-
-
         content = requests.get(data["espnLink"])
         html_con = content.content
         soup = BeautifulSoup(html_con, "html.parser")
@@ -58,14 +54,10 @@ def scrapWeb(dataCollection):
         Potm_(soup, data)
         Player_team(data)
         
-        print(data)
-        print()
-        print()
-        print()
-        time.sleep(0.1)    
+        # Squads(data)
+
         dataCollection[index] = data.copy()
         data.clear()
-    
 
 def Overs(soup, data):
     overs = soup.find_all(
@@ -86,7 +78,6 @@ def Overs(soup, data):
 
     data["Overs"] = {"teamA_Ov": temp[0], "teamB_Ov": temp[1]}
 
-
 def Team(soup, data):
     Teams = soup.find_all(
         "span",
@@ -98,7 +89,6 @@ def Team(soup, data):
 
     data["teams"] = {"teamA": temp[0], "teamB": temp[1]}
     # print(data)
-
 
 def Tor_num(soup, data):
     torall = soup.find_all(
@@ -160,18 +150,23 @@ def Tor_num(soup, data):
     if len(full) > 0:
         data["tournament"] = full[-1]
 
-
 def Team_Score(soup, data):
     Teams_S = soup.find_all(
-        "td",
-        class_="ds-font-bold ds-bg-fill-content-alternate ds-text-tight-m ds-min-w-max ds-text-right",
+        "div",
+        class_="ds-text-compact-m ds-text-typo ds-text-right ds-whitespace-nowrap",
     )
     Teams_Score = []
     for item in Teams_S:
-        Teams_Score.append(item.text)
-
+        score = BeautifulSoup(str(item), "html.parser")
+        score = score.find_all(
+        "strong",
+        )
+        for it in score:
+            Teams_Score.append(it.text)
+    
+    # print(Teams_S)
     data["score"] = {"Score_A": Teams_Score[0], "Score_B": Teams_Score[1]}
-
+    # data["score"] = {"Score_A": "10/0", "Score_B": "98/1"}
 
 def Played(soup, data):
 
@@ -293,7 +288,6 @@ def Played(soup, data):
 
     data["Played"] = player_Played.copy()
 
-
 def Ov(soup, data):
     actual = soup.find_all(
         "div",
@@ -319,13 +313,14 @@ def Ov(soup, data):
     data["actual"] = actual
     # print(data)
 
-
 def Potm_(soup, data):
+    print("POTM")
     try:
         Potm = soup.find_all(
             "span",
             class_="ds-text-tight-m ds-font-medium ds-text-typo ds-underline ds-decoration-ui-stroke hover:ds-text-typo-primary hover:ds-decoration-ui-stroke-primary ds-block",
         )
+        print(Potm)
         Potm = BeautifulSoup(str(Potm[0]), "html.parser")
         Potm = Potm.text
         data["Badges"] = Potm
@@ -333,6 +328,7 @@ def Potm_(soup, data):
         data["Badges"] = ""
 
 def Player_team(data):
+
     player = data["Player"]
     if player in data["Played"]["TeamA"]["Batting"]:
         data["meta"]["team"] = data["teams"]["teamA"]
@@ -342,3 +338,5 @@ def Player_team(data):
         data["meta"]["team"] = data["teams"]["teamB"]
     elif player in data["Played"]["TeamB"]["Bowling"]:
         data["meta"]["team"] = data["teams"]["teamB"]
+
+

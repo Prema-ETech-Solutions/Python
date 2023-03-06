@@ -26,6 +26,15 @@ def commentaryExt(dataCollection):
             )
             output = urllib.request.urlopen(Apiurl).read()
             output = json.loads(output)
+            print("------>com<------->>>"+str(output))
+            print()
+            print()
+            print()
+            print()
+            print()
+            print()
+            print()
+            print()
             output = output["comments"]
 
             for y in range(len(output)):
@@ -48,44 +57,42 @@ def commentaryExt(dataCollection):
                     if apidata["isFour"] == True:
                         st = "FOUR runs"
                         Moment_Type = "Four"
-                        pass
                     elif apidata["isSix"] == True:
                         st = "SIX runs"
 
                         Moment_Type = "Six"
-                        pass
+                        
                     elif apidata["isWicket"] == True:
                         st = "OUT"
                         Moment_Type = "Wicket"
-                        pass
+                        
                     elif apidata["totalRuns"] == 1:
                         st = "1 run"
                         Moment_Type = "Single"
-                        pass
+                        
                     elif apidata["totalRuns"] == 2:
                         st = "2 runs"
                         Moment_Type = "Double"
-                        pass
+                        
                     elif apidata["totalRuns"] == 3:
                         st = "3 runs"
-                        Moment_Type = "Triple"
-                        pass
+                        Moment_Type = "Triple"    
                     else:
-                        
                         Moment_Type = "NA"
-                        pass
-
                     title = apidata["title"] + ", " + st
-                    break
+                
+                
         data["Moment_Type"] = Moment_Type
         data["commentary"] = {
         "title": title,
         "commentary": commentary_str,
         }
-        print(data)
-        print()
-        print()
-        print()
+
+
+        # print(data)
+        # print()
+        # print()
+        # print()
         time.sleep(0.2)
         # print(data)
         dataCollection[index]=data.copy()
